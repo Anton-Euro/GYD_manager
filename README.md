@@ -1,5 +1,5 @@
 # GYD_manager
-Агрегатор облачных хранилищ [Yandex Disk](https://disk.yandex.by/client/disk), [Google Drive](https://www.google.com/intl/ru/drive/), [Dropbox](https://www.dropbox.com/ru/) и тп.
+Агрегатор облачных хранилищ [Yandex Disk](https://disk.yandex.by/client/disk), [Google Drive](https://www.google.com/intl/ru/drive/), [Dropbox](https://www.dropbox.com/ru/) и тп. Использование всех этих сервисов в одном месте.
 
 ### Будет реализовано:
 - [ ] Добавление аккаунтов облачных хранилищ.
