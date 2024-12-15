@@ -1,4 +1,6 @@
 # GYD_manager
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Anton-Euro_GYD_manager&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Anton-Euro_GYD_manager)
+
 Агрегатор облачных хранилищ [Yandex Disk](https://disk.yandex.by/client/disk), [Google Drive](https://www.google.com/intl/ru/drive/), [Dropbox](https://www.dropbox.com/ru/) и тп. Использование всех этих сервисов в одном месте.
 
 ### Реализовано:
@@ -75,4 +77,4 @@
 cmake --build .
 ```
 
-### Ссылка на Sonar - [клац]()
+### Ссылка на Sonar - [клац](https://sonarcloud.io/project/overview?id=Anton-Euro_GYD_manager)
