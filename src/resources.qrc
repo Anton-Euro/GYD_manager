@@ -1,0 +1,31 @@
+<RCC>
+  <qresource prefix="drive">
+    <file>static/folder-yandex.png</file>
+    <file>static/folder-dropbox.png</file>
+    <file>static/folder-google.png</file>
+    <file>static/download_status.png</file>
+    <file>static/upload_status.png</file>
+    <file>static/file.png</file>
+    <file>static/folder.png</file>
+    <file>static/refresh.png</file>
+    <file>static/search.png</file>
+    <file>static/arrow_forward.png</file>
+    <file>static/arrow_back.png</file>
+  </qresource>
+  <qresource prefix="about">
+    <file>static/logo.png</file>
+  </qresource>
+  <qresource prefix="settings">
+    <file>static/add.png</file>
+    <file>static/delete.png</file>
+    <file>static/google.png</file>
+    <file>static/yandex.png</file>
+    <file>static/dropbox.png</file>
+  </qresource>
+  <qresource prefix="menu">
+    <file>static/settings.png</file>
+    <file>static/cloud.png</file>
+    <file>static/swap_vert.png</file>
+    <file>static/upload.png</file>
+  </qresource>
+</RCC>

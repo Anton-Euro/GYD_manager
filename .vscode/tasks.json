@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile UI Forms",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "${workspaceFolder}/convert.sh",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "Compile UI Forms"
+        }
+    ]
+}
