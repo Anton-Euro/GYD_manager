@@ -24,7 +24,8 @@ HttpResponse HttpClient::delete_(const string& url, const map<string, string>& h
 
 HttpResponse HttpClient::request(http::verb method, const string& url, const map<string, string>& headers, const string& body) {
     try {
-        std::string host, target;
+        std::string host;
+        std::string target;
         int port = 443;
         parse_url(url, host, target, port);
 

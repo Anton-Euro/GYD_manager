@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->files_view, &QTableView::doubleClicked, this, &MainWindow::double_click_to_dir);
     connect(ui->back, &QPushButton::clicked, this, &MainWindow::go_back);
     connect(ui->forward, &QPushButton::clicked, this, &MainWindow::go_forward);
-    connect(ui->refresh, &QPushButton::clicked, this, [=]() {
+    connect(ui->refresh, &QPushButton::clicked, this, [this]() {
         if(itemlist->current_dir == itemlist->root) {
             QMessageBox::warning(this, "Error", "You can not refresh in the account list");
             return;
@@ -50,21 +50,21 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->actionExit, &QAction::triggered, this, &QWidget::close);
     connect(ui->actionabout, &QAction::triggered, this, &MainWindow::open_about);
     connect(ui->actionSettings, &QAction::triggered, this, &MainWindow::open_settings);
-    connect(ui->actionCreate_folder, &QAction::triggered, this, [=]() {
+    connect(ui->actionCreate_folder, &QAction::triggered, this, [this]() {
         if(itemlist->current_dir == itemlist->root) {
             QMessageBox::warning(this, "Error", "You can not create a folder in the account list");
             return;
         }
         create_folder();
     });
-    connect(ui->actionUpload, &QAction::triggered, this, [=]() {
+    connect(ui->actionUpload, &QAction::triggered, this, [this]() {
         if(itemlist->current_dir == itemlist->root) {
             QMessageBox::warning(this, "Error", "You can not upload file in the account list");
             return;
         }
         upload_file();
     });
-    connect(ui->actionrefresh, &QAction::triggered, this, [=]() {
+    connect(ui->actionrefresh, &QAction::triggered, this, [this]() {
         if(itemlist->current_dir == itemlist->root) {
             QMessageBox::warning(this, "Error", "You can not refresh in the account list");
             return;
@@ -72,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
         refresh_files();
     });
 
-    connect(ui->search_line, &QLineEdit::editingFinished, this, [=]() {
+    connect(ui->search_line, &QLineEdit::editingFinished, this, [this]() {
         string search_text = (ui->search_line->text()).toStdString();
         if(search_text != "") {
             itemlist->search(search_text);

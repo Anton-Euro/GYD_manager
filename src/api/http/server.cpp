@@ -79,17 +79,17 @@ HttpServer::HttpServer(std::string address, unsigned short port): ioc_(), socket
 
     acceptor_.open(endpoint_.protocol(), ec);
     if (ec) {
-        throw "Open error";
+        throw std::runtime_error("Open error");
     }
 
     acceptor_.bind(endpoint_, ec);
     if (ec) {
-        throw "Bind error";
+        throw std::runtime_error("Bind error");
     }
 
     acceptor_.listen(net::socket_base::max_listen_connections, ec);
     if (ec) {
-        throw "Listen error";
+        throw std::runtime_error("Listen error");
     }
     
     do_accept();

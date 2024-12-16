@@ -10,7 +10,7 @@ namespace Ui {
 class About : public QDialog {
     Q_OBJECT
 public:
-    About(QWidget *parent = nullptr);
+    explicit About(QWidget *parent = nullptr);
     ~About();
 
 private:

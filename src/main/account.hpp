@@ -18,7 +18,7 @@ public:
     std::shared_ptr<BaseAPI> session;
     std::string session_file_name;
 
-    Account(const std::string &path);
+    explicit Account(const std::string &path);
     Account() = default;
 
     void init_files();
