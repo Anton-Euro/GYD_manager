@@ -575,7 +575,6 @@ void MainWindow::refresh_history(shared_ptr<Item> cur_item) {
 }
 
 void MainWindow::refresh_all() {
-    cout << 1 << endl;
     itemlist->accounts->clear();
     itemlist->search_current_dir = nullptr;
 
