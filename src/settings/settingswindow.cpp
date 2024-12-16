@@ -23,6 +23,7 @@ Settings::Settings(shared_ptr<ItemList> itemlist, shared_ptr<string> download_pa
 
     connect(buttonDelegate, &ButtonDelegate::buttonClicked, this, [=](const QModelIndex& index) {
         model->removeRow(index.row());
+        emit refresh_all_signal();
     });
 
     connect(ui->add, &QPushButton::clicked, this, &Settings::add_account);
@@ -71,6 +72,8 @@ void Settings::add_account() {
             this->model->refresh();
 
             watcher->deleteLater();
+
+            emit refresh_all_signal();
         });
 
         watcher->setFuture(future);
@@ -105,6 +108,8 @@ void Settings::add_account() {
             this->model->refresh();
 
             watcher->deleteLater();
+            
+            emit refresh_all_signal();
         });
 
         watcher->setFuture(future);

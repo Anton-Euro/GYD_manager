@@ -4,6 +4,10 @@ using namespace std;
 
 
 ItemList::ItemList(): accounts(make_shared<vector<shared_ptr<Account>>>()), search_current_dir(nullptr) {
+    init();
+}
+
+void ItemList::init() {
     if(!fs::exists("sessions/")) {
         fs::create_directory("sessions/");
     }

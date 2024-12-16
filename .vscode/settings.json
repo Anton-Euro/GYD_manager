@@ -83,6 +83,7 @@
         "qtablewidgetitem": "cpp",
         "source_location": "cpp",
         "qfuturewatcher": "cpp",
-        "qmimedata": "cpp"
+        "qmimedata": "cpp",
+        "any": "cpp"
     }
 }

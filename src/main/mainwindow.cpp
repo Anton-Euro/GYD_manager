@@ -106,6 +106,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::open_settings() {
     Settings w_settings(itemlist, download_path, this);
+    connect(&w_settings, &Settings::refresh_all_signal, this, &MainWindow::refresh_all);
     w_settings.exec();
 }
 
@@ -571,6 +572,19 @@ void MainWindow::refresh_history(shared_ptr<Item> cur_item) {
         itemlist->current_dir = cur_item;
     else
         itemlist->current_dir = cur_item->parent;
+}
+
+void MainWindow::refresh_all() {
+    cout << 1 << endl;
+    itemlist->accounts->clear();
+    itemlist->search_current_dir = nullptr;
+
+    itemlist->init();
+    refresh_history(itemlist->current_dir);
+    clear_subtree(ui->left_menu->topLevelItem(1));
+    init_left_menu(ui->left_menu->topLevelItem(1), itemlist->root);
+    model_table->refresh();
+
 }
 
 void MainWindow::thread_refresh_files() {

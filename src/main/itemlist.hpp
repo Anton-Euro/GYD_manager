@@ -17,6 +17,7 @@ public:
     unsigned long long get_used_storage_size();
     std::shared_ptr<Account> get_account_by_item(std::shared_ptr<Item> item);
     void search(std::string search_text);
+    void init();
 
 private:
     std::shared_ptr<std::vector<std::shared_ptr<Account>>> accounts;

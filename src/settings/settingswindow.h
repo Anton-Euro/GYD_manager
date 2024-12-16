@@ -30,6 +30,9 @@ private slots:
     void add_account();
     void choose_path();
 
+signals:
+    void refresh_all_signal();
+
 private:
     std::shared_ptr<ItemList> itemlist;
     std::shared_ptr<std::string> download_path;

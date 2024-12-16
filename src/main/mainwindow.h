@@ -55,6 +55,7 @@ private slots:
     void update_upload_progress(double speed, double remaining_time, int progress_val, QTableWidgetItem *speed_cell, QTableWidgetItem *status_cell, QTableWidgetItem *ETA_cell, QProgressBar *progress_bar);
     void handle_upload_finished(QTableWidgetItem *speed_cell, QTableWidgetItem *status_cell, QTableWidgetItem *ETA_cell, QProgressBar *progress_bar);
     void finish_refresh_files();
+    void refresh_all();
 
 private:
     Ui::MainWindow *ui;
