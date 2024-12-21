@@ -29,7 +29,7 @@ void HttpSession::handle_request() {
     responce_.keep_alive(false);
     responce_.result(http::status::ok);
     responce_.set(http::field::content_type, "text/plain");
-    beast::ostream(responce_.body()) << "Congratulations! You have linked google drive to GYDManager.";
+    beast::ostream(responce_.body()) << "Congratulations! You have linked service to GYDManager.";
 
     std::regex query_regex(R"(code=([\w/-]+))");
     std::smatch match;
