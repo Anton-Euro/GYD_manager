@@ -82,6 +82,11 @@ HttpServer::HttpServer(std::string address, unsigned short port): ioc_(), socket
         throw std::runtime_error("Open error");
     }
 
+    acceptor_.set_option(net::socket_base::reuse_address(true), ec);
+    if (ec) {
+        throw std::runtime_error("Set option error: " + ec.message());
+    }
+
     acceptor_.bind(endpoint_, ec);
     if (ec) {
         throw std::runtime_error("Bind error");
@@ -100,6 +105,7 @@ void HttpServer::start() {
 }
 
 void HttpServer::stop() {
+    acceptor_.close();
     ioc_.stop();
 }
 

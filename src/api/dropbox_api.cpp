@@ -11,7 +11,7 @@ DropboxAPI::DropboxAPI(
 ): client(), token_file_path(token_file_path), CLIENT_ID(client_id), CLIENT_SECRET(client_secret), REDIRECT_URI("http://127.0.0.1:"+to_string(redirect_port)), REDIRECT_PORT(redirect_port) {}
 
 
-string DropboxAPI::get_redirected_code() { // TODO: reget other port?
+string DropboxAPI::get_redirected_code() {
     HttpServer server("127.0.0.1", REDIRECT_PORT);
     server.start();
     string code = server.get_code();
