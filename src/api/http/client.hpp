@@ -12,7 +12,6 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "root_certificates.hpp"
 
 namespace beast = boost::beast;
 namespace http = beast::http;
