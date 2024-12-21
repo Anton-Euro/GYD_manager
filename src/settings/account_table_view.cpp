@@ -71,7 +71,9 @@ QVariant QTableViewAccountsModel::data(const QModelIndex &index, int role) const
             if((*accounts)[index.row()]->service == "Google")
                 return QIcon(QPixmap(":settings/static/google.png"));
             else if ((*accounts)[index.row()]->service == "Yandex")
-                return QIcon(QPixmap(":settings/static/google.png"));
+                return QIcon(QPixmap(":settings/static/yandex.png"));
+            else if ((*accounts)[index.row()]->service == "Dropbox")
+                return QIcon(QPixmap(":settings/static/dropbox.png"));
         }
         return QVariant();
     }

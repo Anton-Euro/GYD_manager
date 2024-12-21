@@ -141,6 +141,16 @@ bool QTableViewFilesModel::setData(const QModelIndex &index, const QVariant &val
             itemlist->current_dir->items[index.row()]->modified_time = iso8601string_to_timepoint(data["modified"]);
             itemlist->current_dir->items[index.row()]->shared = false;
             itemlist->current_dir->items[index.row()]->trashed = false;
+        } else if(acc->service == "Dropbox") {
+            json data = acc->session->create_folder_yandex(itemlist->current_dir->id + folder_name);
+            acc->save_to_file(data);
+            itemlist->current_dir->items[index.row()]->id = data["path_display"];
+            itemlist->current_dir->items[index.row()]->name = data["name"];
+            itemlist->current_dir->items[index.row()]->mime_type = "dropbox/folder";
+            itemlist->current_dir->items[index.row()]->created_time = get_now();
+            itemlist->current_dir->items[index.row()]->modified_time = get_now();
+            itemlist->current_dir->items[index.row()]->shared = false;
+            itemlist->current_dir->items[index.row()]->trashed = false;
         }
         emit dataChanged(index, index);
         return true;

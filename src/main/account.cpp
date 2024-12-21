@@ -25,6 +25,13 @@ Account::Account(const string &path) {
         mail = info["user"]["login"].get<string>() + "@yandex.ru";
         storage_size = info["total_space"].get<unsigned long long>();
         used_size = info["used_space"].get<unsigned long long>();
+    } else if(service == "Dropbox") {
+        session = make_shared<DropboxAPI>(path);
+        session->get_access_token();
+        json info = session->get_account_info();
+        mail = info["email"].get<string>();
+        storage_size = info["total_space"].get<unsigned long long>();
+        used_size = info["used_space"].get<unsigned long long>();
     }
     
     session_file_name = fs::path(path).filename().string();
@@ -64,6 +71,18 @@ void Account::init_files() {
 
         files->id = "disk:/";
         yandex_init_files(list_files, files);
+    } else if(service == "Dropbox") {
+        json list_files = session->get_list_files();
+
+        if(!fs::exists("files_cache")) {
+            fs::create_directory("files_cache");
+        }
+        ofstream file("files_cache/"+session_file_name);
+        file << list_files.dump();
+        file.close();
+
+        files->id = "/";
+        dropbox_init_files(list_files, files);
     }
 }
 
@@ -87,6 +106,17 @@ void Account::init_files_from_file() {
             file.close();
             files->id = "disk:/";
             yandex_init_files(list_files, files);
+        } else {
+            init_files();
+        }
+    } else if(service == "Dropbox") {
+        if(fs::exists("files_cache/"+session_file_name)) {
+            json list_files;
+            ifstream file("files_cache/"+session_file_name);
+            file >> list_files;
+            file.close();
+            files->id = "/";
+            dropbox_init_files(list_files, files);
         } else {
             init_files();
         }
@@ -185,6 +215,41 @@ void Account::yandex_init_files(json list_files, shared_ptr<Item> item_ptr) {
     }
 }
 
+void Account::dropbox_init_files(json list_files, shared_ptr<Item> item_ptr) {
+    for(const auto &file : list_files) {
+        if(file[".tag"] == "file" && good_path_for_yandex(item_ptr->id, file["path_display"].get<string>())) {
+            item_ptr->add_item(
+                file["path_display"],
+                cut_fullname(file["name"].get<string>()).first,
+                cut_fullname(file["name"].get<string>()).second,
+                file["size"].get<unsigned long long>(),
+                "dropbox/file",
+                iso8601string_to_timepoint(file["client_modified"]),
+                iso8601string_to_timepoint(file["server_modified"]),
+                false,
+                false,
+                false,
+                item_ptr
+            );
+        } else if(file[".tag"] == "folder" && good_path_for_yandex(item_ptr->id, file["path_display"].get<string>(), true)) {
+            shared_ptr<Item> new_folder = item_ptr->add_item(
+                file["path_display"].get<string>() + "/",
+                file["name"],
+                "",
+                0,
+                "dropbox/folder",
+                get_now(),
+                get_now(),
+                true,
+                false,
+                false,
+                item_ptr
+            );
+            dropbox_init_files(list_files, new_folder);
+        }    
+    }
+}
+
 string Account::get_saved_path(string saved_path, shared_ptr<Item> item) {
     string file_name = check_filename(item->name);
     unsigned int file_exists_count = 0;
@@ -203,6 +268,8 @@ void Account::save_to_file(json data) {
         if(service == "Google")
             list_files["files"].push_back(data);
         else if(service == "Yandex")
+            list_files.push_back(data);
+        else if(service == "Dropbox")
             list_files.push_back(data);
         ofstream ofile("files_cache/"+session_file_name);
         ofile << list_files.dump();

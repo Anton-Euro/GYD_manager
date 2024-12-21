@@ -5,7 +5,6 @@ set(PROJECT_N testgui)
 project(${PROJECT_N} VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_PREFIX_PATH "/opt/homebrew/Cellar/qt/6.7.2_1/lib/cmake")
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Concurrent Network)
 find_package(CURL 8.6.0 REQUIRED)
 include_directories(${CURL_INCLUDE_DIRS})
@@ -28,6 +27,7 @@ set(SOURCES
     src/api/http/server.cpp
     src/api/google_api.cpp
     src/api/yandex_api.cpp
+    src/api/dropbox_api.cpp
     src/api/base_api.cpp
 )
 
@@ -45,6 +45,7 @@ set(HEADERS
     src/api/http/root_certificates.hpp
     src/api/google_api.hpp
     src/api/yandex_api.hpp
+    src/api/dropbox_api.hpp
     src/api/base_api.hpp
     src/utils/datetime.hpp
     src/utils/tools.hpp

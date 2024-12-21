@@ -44,6 +44,8 @@ public:
     std::string get_export_google_document_url(std::string &file_id, std::string &mime_type) override {return "";};
     json create_folder(std::string &folder_name, std::string &parent_id) override {return json::array();};
     std::string init_upload_file(std::string &file_name, std::string &parent_id) override {return "";};
+    std::string init_upload_file_dropbox(std::vector<char> &buffer, unsigned long long bytes_sent, std::streamsize gcount) override {return "";};
+    void finish_upload_file_dropbox(unsigned long long bytes_sent, std::string session_id, std::string file_path) override {};
 
 private:
     void refresh_access_token() override;

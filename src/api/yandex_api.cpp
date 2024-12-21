@@ -23,7 +23,7 @@ string YandexAPI::get_redirected_code() { // TODO: reget other port?
 string YandexAPI::get_authorization_url() {
     string auth_url = AUTH_URL + "?client_id=" + CLIENT_ID +
                            "&redirect_uri=" + REDIRECT_URI +
-                           "&response_type=code";
+                           "&response_type=code&force_confirm=1";
     return auth_url;
 }
 

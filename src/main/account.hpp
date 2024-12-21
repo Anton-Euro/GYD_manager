@@ -4,6 +4,7 @@
 #include "../api/base_api.hpp"
 #include "../api/google_api.hpp"
 #include "../api/yandex_api.hpp"
+#include "../api/dropbox_api.hpp"
 #include "item.hpp"
 #include "../utils/tools.hpp"
 
@@ -31,6 +32,7 @@ public:
 private:
     void google_init_files(json list_files, std::shared_ptr<Item> item_ptr);
     void yandex_init_files(json list_files, std::shared_ptr<Item> item_ptr);
+    void dropbox_init_files(json list_files, std::shared_ptr<Item> item_ptr);
 
     std::string remove_extension(const std::string& name, const std::string& extension);
     std::shared_ptr<Item> find_item_by_id_req(std::string& item_id, std::shared_ptr<Item> root);

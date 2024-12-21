@@ -26,6 +26,8 @@ public:
     virtual json create_folder_yandex(const std::string &folder_path) = 0;
     virtual std::string init_upload_file_yandex(const std::string &file_path) = 0;
     virtual std::string init_upload_file(std::string &file_name, std::string &parent_id) = 0;
+    virtual std::string init_upload_file_dropbox(std::vector<char> &buffer, unsigned long long bytes_sent, std::streamsize gcount) = 0;
+    virtual void finish_upload_file_dropbox(unsigned long long bytes_sent, std::string session_id, std::string file_path) = 0;
     virtual void send_upload_part(
         std::string &upload_uri,
         unsigned long long toRead,

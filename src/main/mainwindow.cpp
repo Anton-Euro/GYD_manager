@@ -355,6 +355,10 @@ void MainWindow::download_file(shared_ptr<Item> item) {
     QUrl url(QString::fromStdString(download_url));
     QNetworkRequest *request = new QNetworkRequest(url);
     request->setRawHeader(QByteArray::fromStdString("Authorization"), QByteArray::fromStdString("Bearer " + acc->session->get_access_token()));
+    if(acc->service == "Dropbox") {
+        json header_meta = {{"path", item->id}};
+        request->setRawHeader(QByteArray::fromStdString("Dropbox-API-Arg"), QByteArray::fromStdString(header_meta.dump()));
+    }
 
     const int chunk_size = 10 * 1024 * 1024;
     shared_ptr<unsigned long long> downloaded = make_shared<unsigned long long>(0);
@@ -503,6 +507,13 @@ void MainWindow::thread_upload_file(string file_path, QTableWidgetItem *speed_ce
     qint64 last_time = timer.elapsed();
     unsigned long long last_bytes = 0;
 
+    if(acc->service == "Dropbox") {
+        file.read(buffer.data(), std::min(static_cast<unsigned long long>(chunk_size), file_size - bytes_sent));
+        upload_uri = acc->session->init_upload_file_dropbox(buffer, bytes_sent, file.gcount());
+        bytes_sent += file.gcount();
+    }
+
+
     while(bytes_sent < file_size) {
         unsigned long long to_read = std::min(static_cast<unsigned long long>(chunk_size), file_size - bytes_sent);
         file.read(buffer.data(), to_read);
@@ -533,6 +544,10 @@ void MainWindow::thread_upload_file(string file_path, QTableWidgetItem *speed_ce
             last_time = current_time;
             last_bytes = bytes_sent;
         }
+    }
+
+    if(acc->service == "Dropbox") {
+        acc->session->finish_upload_file_dropbox(bytes_sent, upload_uri, itemlist->current_dir->id + file_name);
     }
 
     emit handle_upload_finished(speed_cell, status_cell, ETA_cell, progress_bar);
