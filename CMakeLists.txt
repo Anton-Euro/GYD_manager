@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.25)
 
-set(PROJECT_N testgui)
+set(PROJECT_N GYDManager)
 
 project(${PROJECT_N} VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_PREFIX_PATH "/opt/homebrew/Cellar/qt/6.7.2_1/lib/cmake")
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Concurrent Network)
 find_package(CURL 8.6.0 REQUIRED)
 include_directories(${CURL_INCLUDE_DIRS})
@@ -42,7 +43,6 @@ set(HEADERS
     src/about/aboutwindow.h
     src/api/http/server.hpp
     src/api/http/client.hpp
-    src/api/http/root_certificates.hpp
     src/api/google_api.hpp
     src/api/yandex_api.hpp
     src/api/dropbox_api.hpp
